@@ -1,0 +1,147 @@
+<html>
+<head>
+       <title>HIGHLIGHTS</title>
+       <link rel="stylesheet" href="stilyhighlights.css">
+       <link rel="icon" type="image/png" href="img/silv%201%2072.png"/>
+       <link rel="preconnect" href="https://fonts.gstatic.com">
+       <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+       <body style="background-color:black;"></body>
+</head>
+<body>
+      <div class="banner">
+          <div class="navbar">
+              <a href="index.html"><img src="logo%20(2).png" class="logo"></a>
+              <ul>
+                  <li><a href="index.html">HOME</a></li>
+                  <li><a href="howtoupload.html">HOW TO UPLOAD</a></li>
+                  <li><a href="highlights.html">HIGHLIGHTS</a></li>
+                  <li><a href="https://youtube.com/playlist?list=PLtE4plOOmEy6cb5EyMdA3xRsFG_2ur-_j">WATCH SOME EDITS</a></li>
+              </ul>
+          </div>
+          
+<!-------------- highlights -------------->
+         <div class="small-container">
+             <div class="col-2">
+                 <div class="title">
+                     <h1>HIGHLIGHTS</h1>
+                 </div>
+                 <div class="highlights">
+                     <a href="https://youtu.be/b0X7A6o4oEM"><p align="center"><img src="img/highlights.jpg"></p></a>
+                 </div>
+             </div>
+         </div>
+<!-------------- paypal -------------->
+  <div class="paypal">
+     <div id="smart-button-container">
+      <div style="text-align: center;">
+        <div style="margin-bottom: 1.25rem;">
+          <p></p>
+          <select id="item-options"><option value="Polo G - RAPSTAR" price="10.00">Polo G - RAPSTAR - 10.00 EUR</option><option value="Curly J - NO HOODIE" price="10.00">Curly J - NO HOODIE - 10.00 EUR</option><option value="IDK  - SHOOT MY SHOT" price="10.00">IDK  - SHOOT MY SHOT - 10.00 EUR</option><option value="KillBunk  - OUTTA TIME" price="10.00">KillBunk  - OUTTA TIME - 10.00 EUR</option></select>
+          <select style="visibility: hidden" id="quantitySelect"></select>
+        </div>
+      <div id="paypal-button-container"></div>
+      </div>
+    </div>
+    <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=EUR" data-sdk-integration-source="button-factory"></script>
+    <script>
+      function initPayPalButton() {
+        var shipping = 0;
+        var itemOptions = document.querySelector("#smart-button-container #item-options");
+    var quantity = parseInt();
+    var quantitySelect = document.querySelector("#smart-button-container #quantitySelect");
+    if (!isNaN(quantity)) {
+      quantitySelect.style.visibility = "visible";
+    }
+    var orderDescription = '';
+    if(orderDescription === '') {
+      orderDescription = 'Item';
+    }
+    paypal.Buttons({
+      style: {
+        shape: 'rect',
+        color: 'black',
+        layout: 'vertical',
+        label: 'pay',
+        
+      },
+      createOrder: function(data, actions) {
+        var selectedItemDescription = itemOptions.options[itemOptions.selectedIndex].value;
+        var selectedItemPrice = parseFloat(itemOptions.options[itemOptions.selectedIndex].getAttribute("price"));
+        var tax = (0 === 0) ? 0 : (selectedItemPrice * (parseFloat(0)/100));
+        if(quantitySelect.options.length > 0) {
+          quantity = parseInt(quantitySelect.options[quantitySelect.selectedIndex].value);
+        } else {
+          quantity = 1;
+        }
+
+        tax *= quantity;
+        tax = Math.round(tax * 100) / 100;
+        var priceTotal = quantity * selectedItemPrice + parseFloat(shipping) + tax;
+        priceTotal = Math.round(priceTotal * 100) / 100;
+        var itemTotalValue = Math.round((selectedItemPrice * quantity) * 100) / 100;
+
+        return actions.order.create({
+          purchase_units: [{
+            description: orderDescription,
+            amount: {
+              currency_code: 'EUR',
+              value: priceTotal,
+              breakdown: {
+                item_total: {
+                  currency_code: 'EUR',
+                  value: itemTotalValue,
+                },
+                shipping: {
+                  currency_code: 'EUR',
+                  value: shipping,
+                },
+                tax_total: {
+                  currency_code: 'EUR',
+                  value: tax,
+                }
+              }
+            },
+            items: [{
+              name: selectedItemDescription,
+              unit_amount: {
+                currency_code: 'EUR',
+                value: selectedItemPrice,
+              },
+              quantity: quantity
+            }]
+          }]
+        });
+      },
+      onApprove: function(data, actions) {
+        return actions.order.capture().then(function(details) {
+          alert('Transaction completed by ' + details.payer.name.given_name + '!');
+        });
+      },
+      onError: function(err) {
+        console.log(err);
+      },
+    }).render('#paypal-button-container');
+  }
+  initPayPalButton();
+    </script>
+  </div>                                
+          
+    <div class="container2">
+       <nav>
+           <ul>
+               <li><a href="https://www.instagram.com/dmitri.edits/">INSTAGRAM</a></li>
+               <li><a href="https://twitter.com/DmitriFNBR">TWITTER</a></li>
+               <li><a href="https://www.youtube.com/channel/UCDwm4tZSzh3gfkLEkNNB4hw">YOUTUBE</a></li>
+               <li><a href="https://www.twitch.tv/DmitriFN">TWITCH</a></li>
+           </ul>
+       </nav>
+       <nav>
+           <p>©Copyright 2020/2021 - DMITRI</p>
+       </nav>
+   </div>
+      </div> 
+         
+         
+         
+</body>
+</html>
